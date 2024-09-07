@@ -77,7 +77,7 @@ login.login_view = 'index'
 # Setup logging
 logs = logging.getLogger('werkzeug')
 # Log to '/data/flask.log'
-data_flask_log = logging.FileHandler('/data/flask.log')
+data_flask_log = logging.FileHandler('/logs/flask.log')
 logs.addHandler(data_flask_log)
 # Log to 'stderr'
 logs.addHandler(default_handler)

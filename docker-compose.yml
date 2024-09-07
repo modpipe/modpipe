@@ -16,10 +16,11 @@ services:
 #    ports:
 #      - 5000:5000
     volumes:
+      - ./data/venv:/venv
       - ./data/web:/data
       - ./app:/flask/app
-      - ./static:/flask/static
       - ./config.py:/flask/config.py
+      - ./data/logs:/logs
     command: /flask/start.sh
     networks:
       - traefik
