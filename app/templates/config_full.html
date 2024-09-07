@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <h1 class="mb-1 text-2xl font-bold text-gray-900 dark:text-white">Service Configuration</h1>
+        <p class="text-md text-gray-900 dark:text-white mb-6">
+            Below are options to link your accounts to our service.  Please read our <a class="font-semibold underline" href="/privacy">Privacy Policy</a> to fully understand what and
+            why we collect this information, along with how we can use and safeguard this information.
+        </p>
+            <!-- NightBot -->
+            <form method="post" action="config/nightbot">
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="sm:col-span-2 ml-2 mb-1 text-2xl font-bold text-gray-900 dark:text-white">
+                    NightBot
+                </div>
+            </div>
+            <div class="p-4 mb-4 border-solid border-2 rounded-md border-blue-900">
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                    <div class="sm:col-span-2">
+                        <label for="nightbot_display_name" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Display Name</label>
+                        <input type="text" name="nightbot_display_name" id="nightbot_display_name" placeholder="For Recognition Purposes"
+                            value="{{nightbot_data['display_name']}}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600
+                            focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div class="w-full">
+                        <label for="nightbot_client_id" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">client_id</label>
+                        <input type="password" name="nightbot_client_id" id="nightbot_client_id" placeholder="oauth2 client_id" required
+                            value="{{nightbot_data['client_id']}}""
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600
+                            focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input type="checkbox" onclick="togglePassword('nightbot_client_id')" class="ml-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <span class="ml-1 pt-2 text-sm font-medium text-gray-900 dark:text-white">Show client_id</span>
+                    </div>
+                    <div class="w-full">
+                        <label for="nightbot_client_secret" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">client_secret</label>
+                        <input type="password" name="nightbot_client_secret" id="nightbot_client_secret" placeholder="oauth2 client_secret" required
+                            value="{{nightbot_data['client_secret']}}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input type="checkbox" onclick="togglePassword('nightbot_client_secret')" class="ml-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <span class="ml-1 pt-2 text-sm font-medium text-gray-900 dark:text-white">Show client_secret</span>
+                    </div>
+                    <div class="sm:col-span-2 mb-1 text-xl font-bold text-gray-900 dark:text-white text-right">
+                        <button type="submit"
+                        class="inline-flex items-center px-5 py-2.5
+                        text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
+                        focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Save & Authorize</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <!-- Twitch -->
+            <form method="post" action="config/twitch">
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="sm:col-span-2 mx-2 mb-1 text-2xl font-bold text-gray-900 dark:text-white">
+                    Twitch
+                </div>
+            </div>
+            <div class="p-4 mb-4 border-solid border-2 rounded-md border-blue-900">
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                    <div class="sm:col-span-2">
+                        <label for="twitch_display_name" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Display Name</label>
+                        <input type="text" name="twitch_display_name" id="twitch_display_name" placeholder="For Recognition Purposes"
+                            value="{{twitch_data['display_name']}}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600
+                            focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div class="w-full">
+                        <label for="client_id" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">client_id</label>
+                        <input type="password" name="twitch_client_id" id="twitch_client_id" placeholder="oauth2 client_id" required
+                            value="{{twitch_data['client_id']}}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600
+                            focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input type="checkbox" onclick="togglePassword('twitch_client_id')" class="ml-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <span class="ml-1 pt-2 text-sm font-medium text-gray-900 dark:text-white">Show client_id</span>
+                    </div>
+                    <div class="w-full">
+                        <label for="client_secret" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">client_secret</label>
+                        <input type="password" name="twitch_client_secret" id="twitch_client_secret" placeholder="oauth2 client_secret" required
+                            value="{{twitch_data['client_secret']}}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input type="checkbox" onclick="togglePassword('twitch_client_secret')" class="ml-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <span class="ml-1 pt-2 text-sm font-medium text-gray-900 dark:text-white">Show client_secret</span>
+                    </div>
+                    <div class="sm:col-span-2 mb-1 text-xl font-bold text-gray-900 dark:text-white text-right">
+                        <button type="submit"
+                        class="inline-flex items-center px-5 py-2.5
+                        text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
+                        focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Save & Authorize</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+      
+  </section>
+{% endblock %}

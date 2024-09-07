@@ -1,0 +1,8 @@
+__pycache__
+venv
+.env
+.flaskenv
+.gitignore
+reset.sh
+README.md
+data

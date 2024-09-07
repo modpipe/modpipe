@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="p-5 self-center justify-center items-center text-slate-800 dark:text-slate-200 text-3xl">
+        
+        {% for item in current_user.__dict__ %}
+        {% if not item.startswith('_') %}
+            <p>{{item}}: {{ current_user.__dict__[item] }}</p>
+        {% endif %}
+        {% endfor %}
+        <p><a href="/auth/user/edit">Edit User</a></p>
+    </div>
+{% endblock %}

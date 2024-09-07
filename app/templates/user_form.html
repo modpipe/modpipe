@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white">Edit User Information</h2>
+        <p class="mb-4 font-light text-sm text-gray-900 dark:text-gray-200">Last login: <span class="italic">{% if user.last_used != None %}{{user.last_used|ctime}}{% else %}never{% endif %}</span></p>
+        <form method="post" action="/auth/user/update">
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="w-full">
+                    <input type="hidden" id="type" name="type" value="update">
+                    <input type="hidden" id="id" name="id" value="{{user.id}}">
+                    <input type="hidden" id="email" name="email" value="{{user.email}}">
+                    <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Username (cannot be changed later)" {% if user.username != None %} value="{{user.username}}"{% endif %}
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="w-full">
+                    <label for="email_display" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+
+                    <input type="email" name="email_display" id="email_display" required="" value="{{user.email}}" disabled=""
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="w-full">
+                    <label for="display" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Display Name</label>
+                    <input type="display" name="display" id="display" {% if user.display != None %} value="{{user.display}}"{% endif %}
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+                
+                <div class="w-full">
+                    <label for="admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Level</label>
+                    <select id="admin" name="admin"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        {% for level in ["owner","admin","mod","viewer"] %}
+                            {% if level == user.admin %}
+                        <option selected="">{{level}}</option>
+                            {% else %}
+                        <option>{{level}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="avatar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Avatar Image URL</label>
+                    <input type="avatar" name="avatar" id="display" placeholder="https://example.com/img/avatar.png" {% if user.avatar != None %} value="{{user.avatar}}"{% endif %}
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="bio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Bio</label>
+                    <textarea id="bio" name="bio" rows="8" placeholder="Tell us about yourself"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300
+                        focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{user.bio}}</textarea>
+                </div>
+            </div>
+            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                Edit User
+            </button>
+        </form>
+    </div>
+  </section>
+{% endblock %}

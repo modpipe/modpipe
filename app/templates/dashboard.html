@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Example Dashboard -->
+
+<section class="bg-white dark:bg-gray-900">
+    <div id="dashboard_wrapper" class="py-8 px-4 mx-auto max-w-screen-xl text-center  lg:px-6">
+        
+        <!-- // CRUD Bar START // -->
+        <div class="mx-auto mb-4">
+        
+            <div class="justify-between items-center pt-0 flex px-10 align-middle">
+
+                <!-- // Left CRUD Controls // -->
+                <div class="items-center sm:flex align-middle">
+                    <!-- // Configure Button // -->
+                    <button class="h-14 inline-flex items-center px-5 py-3 text-sm font-medium text-center
+                            text-gray-900 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300
+                            fill-gray-900 dark:fill-gray-400
+                            border-2 rounded-lg border-gray-500 dark:border-gray-400
+                            hover:border-gray-400 hover:dark:border-gray-200"
+                            id="edit_commands" type="button"
+                            onclick="configModal.show()">Configure</button>
+                </div>
+                <!-- // Right CRUD Controls // -->
+                <div class="items-center sm:flex align-middle">
+                    <!-- // Edit Button // -->
+                    <button class="h-14 inline-flex items-center px-5 py-3 mr-4 text-sm font-medium text-center
+                            text-gray-900 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300
+                            fill-gray-900 dark:fill-gray-400
+                            border-2 rounded-lg border-gray-500 dark:border-gray-400
+                            hover:border-gray-400 hover:dark:border-gray-200"
+                            id="edit_commands" type="button"
+                            onclick="toggleEditCommands()">Edit</button>
+                    <!-- // New Button // -->
+                    <button class="h-14 inline-flex items-center px-5 py-3 ml-4 text-sm font-medium text-center
+                            text-gray-900 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300
+                            fill-gray-900 dark:fill-gray-400
+                            border-2 rounded-lg border-gray-500 dark:border-gray-400
+                            hover:border-gray-400 hover:dark:border-gray-200"
+                            id="new_command" type="button" onclick="showCommandModal()">New</button>
+                </div>
+            </div>
+        </div>
+        <!-- // CRUD Bar END // -->
+        
+
+        <!-- // Command Blocks START //-->
+        <div id="dashboard_command_blocks" 
+             class="grid gap-4 lg:gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+             align-middle max-w-2/3 min-w-64 place-items-center">
+
+            <!-- // CLIP IT COMMAND BLOCK #### ALWAYS THERE #### // -->
+            <div class="text-center text-gray-500 dark:text-gray-400
+                        border-solid border-4 rounded-lg bg-blue-950 hover:bg-indigo-950
+                        border-blue-600 hover:border-blue-800 p-2 cursor-pointer
+                        w-40 h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 xl:w-56 xl:h-56
+                        aspect-square justify-center"
+                        onclick="window.location.href='#'">
+                <img class="mx-auto mb-4 rounded-full bg-blue-600
+                w-20 h:20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32"
+                src="/img/clip.png" alt="Bit Commands">
+                <h3 class="font-bold tracking-tight text-gray-900 dark:text-white
+                text-lg md:text-xl lg:text-2xl">
+                    Clip It!
+                </h3>
+            </div>
+
+            {% include 'dashboard/command_blocks.html' %}
+
+        </div>  
+    </div>
+  </section>
+
+{% endblock %}

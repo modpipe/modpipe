@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 220 60"
+   version="1.1"
+   x="0px"
+   y="0px"
+   id="svg18"
+   sodipodi:docname="pipebot-wide.svg"
+   width="220"
+   height="60"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  <defs
+     id="defs22" />
+  <sodipodi:namedview
+     id="namedview20"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.4805306"
+     inkscape:cx="2.4188373"
+     inkscape:cy="7.6596516"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g10" />
+  <title
+     id="title2">bot3_open</title>
+  <desc
+     id="desc4">Created with Sketch.</desc>
+  <g
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     sketch:type="MSPage"
+     id="g12"
+     transform="translate(-15.857469,-4.7309008)">
+    <g
+       sketch:type="MSArtboardGroup"
+       fill="#000000"
+       id="g10">
+      <path
+         d="m 38.100523,40.414186 v 0 c 0.648141,0 1.173564,-0.543251 1.173564,-1.213386 0,-0.670135 -0.525423,-1.213386 -1.173564,-1.213386 -0.648141,0 -1.173564,0.543251 -1.173564,1.213386 0,0.670135 0.525423,1.213386 1.173564,1.213386 z m 0,2.426773 c -1.944425,0 -3.520692,-1.629755 -3.520692,-3.640159 0,-2.010404 1.576267,-3.640158 3.520692,-3.640158 1.944424,0 3.520692,1.629754 3.520692,3.640158 0,2.010404 -1.576268,3.640159 -3.520692,3.640159 z"
+         sketch:type="MSShapeGroup"
+         id="path6"
+         sodipodi:nodetypes="sssssssssss"
+         style="fill:#b50000;fill-opacity:1;stroke:#b40000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         d="m 45.328747,16.011218 c 12.576878,0 18.414546,5.225918 21.124152,10.077229 l -10e-7,-14.966115 V 9.944287 h 2.347127 v 1.178045 27.978566 0.589022 6.655954 c 0,0 0,12.133863 -23.471278,12.133863 -23.471278,0 -23.471278,-12.133863 -23.471278,-12.133863 V 39.68992 39.100898 11.122332 9.944287 h 2.347128 v 1.178045 14.966112 C 26.9142,21.237136 32.751869,16.011218 45.328747,16.011218 Z M 27.725289,40.278943 c 0,-5.02601 3.9362,-9.100397 8.80471,-9.100397 h 17.597496 c 4.862707,0 8.804711,4.073281 8.804711,9.100397 0,5.02601 -3.9362,9.100397 -8.804711,9.100397 H 36.529999 c -4.862708,0 -8.80471,-4.073282 -8.80471,-9.100397 z M 24.204597,9.944287 c 0,-0.670135 -0.525423,-1.213386 -1.173564,-1.213386 -0.648142,0 -1.173564,0.543251 -1.173564,1.213386 z m 44.595428,0 c 0,-0.670135 -0.525422,-1.213386 -1.173563,-1.213386 -0.648142,0 -1.173564,0.543251 -1.173564,1.213386 z"
+         sketch:type="MSShapeGroup"
+         id="path8"
+         style="stroke-width:0.596654" />
+      <path
+         d="m 53.079019,40.396027 c 0.648141,0 1.173564,-0.543252 1.173564,-1.213386 0,-0.670135 -0.525423,-1.213387 -1.173564,-1.213387 -0.648141,0 -1.173564,0.543252 -1.173564,1.213387 0,0.670134 0.525423,1.213386 1.173564,1.213386 z m 0,2.426772 v 0 c -1.944424,0 -3.520692,-1.629754 -3.520692,-3.640158 0,-2.010405 1.576268,-3.640159 3.520692,-3.640159 1.944425,0 3.520692,1.629754 3.520692,3.640159 0,2.010404 -1.576267,3.640158 -3.520692,3.640158 z"
+         id="path1119"
+         style="fill:#b50000;fill-opacity:1;stroke:#b40000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.4107px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#010101;fill-opacity:1;stroke:#000000;stroke-width:1.45433"
+         x="71.641434"
+         y="48.540398"
+         id="text2709"><tspan
+           sodipodi:role="line"
+           id="tspan2707"
+           x="71.641434"
+           y="48.540398"
+           style="stroke-width:1.45433">pipe</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.4107px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#b30000;fill-opacity:1;stroke:#b20000;stroke-width:3.90965;stroke-dasharray:none;stroke-opacity:1"
+         x="155.11816"
+         y="47.876892"
+         id="text3129"><tspan
+           sodipodi:role="line"
+           id="tspan3127"
+           x="155.11816"
+           y="47.876892"
+           style="font-size:38.4107px;fill:#b30000;fill-opacity:1;stroke:#b20000;stroke-width:3.90965;stroke-dasharray:none;stroke-opacity:1">BOT</tspan></text>
+    </g>
+  </g>
+  <metadata
+     id="metadata4959">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>bot3_open</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

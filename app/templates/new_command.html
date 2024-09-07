@@ -1,0 +1,129 @@
+<!-- New Command Modal -->
+<div id="new_command-popup" tabindex="-1" class="hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full enable_scrollbar">
+    <div class="relative p-4 w-full max-w-4xl h-full md:h-auto">
+        <div class="enable_modal_scrolling no-scrollbar relative p-4 bg-white rounded-lg shadow md:p-8
+             dark:bg-gray-800 border-2 rounded-lg border-gray-500 dark:border-gray-400">
+            <div class="mb-4 text-sm font-light text-gray-500 dark:text-gray-400">
+
+                <div class="px-4 mx-auto max-w-2xl">
+                    <h1 class="mb-1 text-2xl font-bold text-gray-900 dark:text-white">New Command</h1>
+                    <p class="text-md text-gray-900 dark:text-white mb-6">
+                        Add a new command
+                    </p>
+                        <!-- NightBot -->
+                        <form method="post" action="command/new">
+                        <div class="p-4 mb-4 border-solid border-2 rounded-md border-blue-900">
+                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+
+                                <div class="w-full">
+                                    <label for="display_name" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Display Name</label>
+                                    <input type="text" name="display_name" id="display_name" placeholder="Displayed on Button"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600
+                                        focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                        dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+            
+                                <div class="w-full">
+                                    <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Command Type</label>
+                                    <select id="type" name="type" onchange="changeCommandLabel(this)"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected="">Choose Command Type</option>
+                                        {% for level in ["chat_message","commercial","winner","game"] %}
+                                            <option value="{{level}}">{{ level.replace("_", " ").lower().capitalize() }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="w-full">
+                                    <label for="timeout" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Command Timeout</label>
+                                    <select id="timeout" name="timeout" onchange="changeCommandLabel(this)"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected="" value="0">0 Seconds</option>
+                                            <option value="5">5 Second</option>
+                                            <option value="10">10 Second</option>
+                                            <option value="30">30 Second</option>
+                                            <option value="60">1 Minute</option>
+                                            <option value="120">2 Minutes</option>
+                                            <option value="300">5 Minutes</option>
+                                            <option value="600">10 Minutes</option>
+                                            <option value="900">15 Minutes</option>
+                                            <option value="1800">30 Minutes</option>
+                                            <option value="3600">1 Hour</option>
+                                    </select>
+                                </div>
+
+                                <div class="w-full">
+                                    <label for="short_description" class="ml-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tooltip Description</label>
+                                    <input type="text" name="short_description" id="short_description" placeholder="A few words only"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600
+                                        focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                        dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                                
+                                <div class="w-full">
+                                    <label for="users" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Authorized Users</label>
+                                    <select id="users" name="users" multiple
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                                            focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 no-scrollbar
+                                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        {% for level in ["bboydax","beardedtek","jace","chaoticneutral"] %}
+                                            <option value="{{level}}">{{ level.replace("_", " ").lower().capitalize() }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="w-full">
+                                    <label for="groups" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Authorized Groups</label>
+                                    <select id="groups" name="groups" multiple
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                                            focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 no-scrollbar
+                                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        {% for level in ["owner","moderator","vip","all"] %}
+                                            <option value="{{level}}">{{ level.replace("_", " ").lower().capitalize() }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label id="command_label" for="command" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Command Text</label>
+                                    <textarea id="command" name="command" rows="4" placeholder="Enter Command Required Data"
+                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300
+                                        focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label id="long_description_label" for="long_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Long Description for documentation</label>
+                                    <textarea id="long_description" name="long_description" rows="4" placeholder="Enter Command Required Data"
+                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300
+                                        focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                                </div>
+            
+                                <div class="sm:col-span-2 mb-1 text-xl font-bold text-gray-900 dark:text-white text-right">
+                                    <button type="submit"
+                                    class="inline-flex items-center px-5 py-2.5
+                                    text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
+                                    focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        
+                </div>
+
+            </div>
+            <div class="justify-between items-center pt-0 space-y-4 sm:flex sm:space-y-0">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">What data do we collect?</a>
+                <div class="items-center space-y-4 sm:space-x-4 sm:flex sm:space-y-0">
+                    <button class="h-12 inline-flex items-center px-5 py-2.5 mt-4 mx-4 sm:mt-6 text-sm font-medium text-center
+                            text-gray-900 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300
+                            fill-gray-900 dark:fill-gray-400
+                            border-2 rounded-lg border-gray-500 dark:border-gray-400
+                            hover:border-gray-400 hover:dark:border-gray-200"
+                            id="close-new_command" type="button" onclick="newCommandModal.hide()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
