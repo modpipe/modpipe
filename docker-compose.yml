@@ -6,15 +6,48 @@ networks:
     external: true
 
 services:
-  modpipe-web:
+  modpipe:
     profiles:
       - production
+    build: .
+    container_name: modpipe-web
+    image: modpipe-web:latest
+    volumes:
+      - ./data/venv:/venv
+      - ./data/web:/data
+      - ./app:/flask/app
+      - ./config.py:/flask/config.py
+      - ./data/logs:/logs
+    command: /flask/start.sh
+    networks:
+      - traefik
+      - modpipe
+    env_file:
+      - path: ./env
+        required: true
+      - path: ./overrides.env
+        required: false
+    depends_on:
+      - modpipe-db
+      - modpipe-static
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.modpipe-web.rule=Host(`modpipe.${DOMAIN:-example.com}`)'
+      - 'traefik.http.routers.modpipe-web.entryPoints=https'
+      - 'traefik.http.routers.modpipe-web.tls=true'
+      - 'traefik.http.routers.modpipe-web.tls.certresolver=le'
+      - "traefik.http.routers.modpipe-web.service=modpipe-web-entrypoint"
+      - 'traefik.http.services.modpipe-web-entrypoint.loadbalancer.server.port=5000'
+
+  modpipe-dev:
+    profiles:
       - dev
     build: .
     container_name: modpipe-web
     image: modpipe-web:latest
-#    ports:
-#      - 5000:5000
+    ports:
+      - 5000:5000
     volumes:
       - ./data/venv:/venv
       - ./data/web:/data
