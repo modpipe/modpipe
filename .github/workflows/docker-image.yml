@@ -1,6 +1,6 @@
 build-and-publish-latest:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' # Running this job only for master branch
+    if: github.ref == 'refs/heads/main'
 
     steps:
         - uses: actions/checkout@v2 # Checking out the repo
@@ -8,6 +8,6 @@ build-and-publish-latest:
         - name: Build and Publish latest Docker image
           uses: VaultVulp/gp-docker-action@1.1.12
           with:
-              github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
-              image-name: my-cool-service # Provide only Docker image name, tag will be automatically set to latest
+              github-token: ${{ secrets.GITHUB_TOKEN }}
+              image-name: modpipe
               dockerfile: Dockerfile_server
