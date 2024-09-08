@@ -1,3 +1,3 @@
-FROM ghcr.io/modpipe/modpipe-base:latest
+FROM modpipe/modpipe-base:latest
 COPY . .
 CMD /flask/start.sh
