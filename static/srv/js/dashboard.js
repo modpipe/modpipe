@@ -1,3 +1,7 @@
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function makeId(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -77,8 +81,48 @@ function changeCommandLabel(select){
     }
 }
 
+function commandFeedback(id,result) {
+    if (result.timeout === "None" || result.timeout === "0" ){
+        commandTimeout = 10000;
+    } else {
+        commandTimeout = parseInt(result.timeout) * 1000;
+    }
+    commandStatusCode = result.status.code;
+    commandMessage = result.feedback;
+    if (commandStatusCode === 200){
+        feedbackBg = "bg-emerald-400/25";
+        feedbackTextBg = "bg-green-950"
+        feedbackColor = "text-white";
+    } else {
+        feedbackBg = "bg-red-400";
+        feedbackColor = "text-red-950/25";
+    }
+
+    feedbackEl = document.getElementById(id);
+    feedbackTextEl = document.getElementById(id+'-text');
+    console.log(commandStatusCode);
+    console.log(commandTimeout);
+    console.log(feedbackBg);
+    console.log(feedbackColor);
+    console.log(commandMessage);
+
+    feedbackEl.classList.add(feedbackBg);
+    feedbackEl.classList.add(feedbackColor);
+    feedbackTextEl.classList.add(feedbackTextBg);
+    feedbackTextEl.innerHTML = commandMessage;
+    feedbackEl.classList.remove("invisible");
+    sleep(commandTimeout).then(() => {
+        feedbackEl.classList.add("invisible");
+        feedbackEl.classList.remove(feedbackBg);
+        feedbackEl.classList.remove(feedbackColor);
+        feedbackTextEl.classList.remove(feedbackTextBg);
+        feedbackTextEl.innerHTML = "";
+    })
+    
+}
+
 function launchCommand(cmd){
-    endpoint = "/modpipe/command/"+cmd+"?chk="+makeId(10)
+    endpoint = "command/"+cmd+"?chk="+makeId(10)
     fetch(endpoint)
     .then(response => {
         if (!response.ok) {
@@ -91,6 +135,8 @@ function launchCommand(cmd){
         // Do something with the data
         // Make the command block glow green and fade back to normal after timeout is over
         console.log(data);
+        commandFeedback(cmd+'-feedback',data.result)
+
     })
     .catch(error => {
         

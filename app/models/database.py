@@ -70,10 +70,12 @@ class Commands(db.Model):
     groups = db.Column(JSON)
     name = db.Column(db.String(64))
     type = db.Column(db.String(32))
+    service = db.Column(db.String(32))
+    apiPath = db.Column(db.String(1024))
     command = db.Column(db.String(4096))
     short_description = db.Column(db.String(64))
     long_description = db.Column(db.String(512))
-    timeout = db.Column(db.Integer())
+    timeout = db.Column(db.Integer(),default=10)
     image_url = db.Column(db.String(1024))
     last_used = db.Column(db.Integer())
 

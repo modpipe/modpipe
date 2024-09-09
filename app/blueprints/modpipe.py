@@ -38,15 +38,16 @@ def index(welcome=False):
 @modpipe.route('/command/<cmd>')
 def command_execute(cmd):
     return_json = {
-            "id" : "command_id",
-            "name" : "command_name",
-            "checkback": None,
+            "id" : cmd,
+            "name" : "Unknown",
+            "checkback": "",
             "result": {
-                "timeout": 0,
+                "timeout": 10,
                 "status": {
-                    "code": 0,
-                    "message": None
-                }
+                    "code": 404,
+                    "message": "Command Not Found"
+                },
+                "feedback": "ERROR: Not Found",
             }
         }
     if 'chk' in request.args:
@@ -67,8 +68,12 @@ def command_execute(cmd):
                 "status": {
                     "code": 200, # Use HTTP Codes for success / failure messages???
                     "message": "SUCCESS" # Plain Text Error Message
-                }
+                },
+                "feedback": f"{command.name} OK",
             }
+        else:
+            return_json['id'] = cmd
+            return_json['name']
         
     return jsonify(return_json)
     

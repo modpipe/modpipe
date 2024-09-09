@@ -20,28 +20,29 @@
 
     
             <!-- // Command Block ## {{ command_name }} ##  START // -->
-            <div id="bit_commands-wrapper" onclick="launchCommand('/modpipe/command/{{command.id}}')"
+            <div id="{{ command.id }}-wrapper"
                  class="text-center text-gray-500 dark:text-gray-400
                  border-solid border-4 rounded-lg bg-blue-950 hover:bg-indigo-950
-                 border-blue-800 p-2
+                 border-blue-800 p-2 select-none
                  w-40 h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 xl:w-56 xl:h-56
                  aspect-square justify-center relative inset-0 flex z-20">
                 
                 <!-- // Delete Overlay START -- INVISIBLE AT LOAD //-->
-                <div id="bit_commands-edit" class="invisible absolute top-0 left-0 bg-gray-900/50 w-full h-full">
+                <div id="{{ command.id }}-feedback"
+                     class="invisible cursor-not-allowed absolute top-0 left-0 bg-gray-900/50 w-full h-full">
                     <div class="h-3/4"></div>
-                    <div class="h-1/4 bg-gray-950 font-bold text-3xl cursor-pointer" onclick="deleteConfirm('{{command.id}}')">
-                        DELETE
+                    <div id="{{ command.id }}-feedback-text"
+                         class="h-1/4 font-bold text-lg">
                     </div>
                 </div>
                 <!-- // Delete Overlay END // -->
 
                 <!-- // Command clickable area START // -->
-                <div id="bit_commands_content" class=" cursor-pointer" onclick="launchCommand('{{command.id}}')">
+                <div id="{{ command.id }}_content" class=" cursor-pointer" onclick="launchCommand('{{command.id}}')">
                     <!-- // Info Tooltip / Edit Area  START // -->
                     <div class="flex justify-between">
                         <!-- // Info Button START // -->
-                        <div data-tooltip-target="info-bit_commands" class="w-6 h-4 bg-yellow hover:underline hover:text-gray-700 dark:hover:text-gray-200">
+                        <div data-tooltip-target="info-{{ command.id }}" class="w-6 h-4 bg-yellow hover:underline hover:text-gray-700 dark:hover:text-gray-200">
                             <svg class="currentColor aspect-square h-5 w-5" fill="currentColor" viewBox="0 0 32 32">
                                 <path d="M17.962,24.725l1.806,0.096v2.531h-7.534v-2.406l1.045-0.094c0.568-0.063,0.916-0.254,0.916-1.014v-8.801
                                 c0-0.699-0.188-0.92-0.791-0.92l-1.106-0.062v-2.626h5.666L17.962,24.725L17.962,24.725z M15.747,4.648
@@ -51,7 +52,7 @@
                             </svg>
                         </div>
                         <!-- // Info Tooltip START // -->
-                        <div id="info-bit_commands" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        <div id="info-{{ command.id }}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                             {{ short_description }}
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
@@ -59,14 +60,14 @@
                         <!-- // Info Button END // -->
 
                         <!-- // Edit Button START // -->
-                        <div data-tooltip-target="edit-bit_commands" class="w-6 h-4 bg-yellow hover:underline hover:text-gray-700 dark:hover:text-gray-200" onclick="newCommandModal.show()">
+                        <div data-tooltip-target="edit-{{ command.id }}" class="w-6 h-4 bg-yellow hover:underline hover:text-gray-700 dark:hover:text-gray-200" onclick="newCommandModal.show()">
                             <svg class="currentColor aspect-square h-5 w-5" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M13 0L16 3L9 10H6V7L13 0Z"/>
                                 <path d="M1 1V15H15V9H13V13H3V3H7V1H1Z"/>
                                 </svg>
                         </div>
                         <!-- // Edit Tooltip // -->
-                        <div id="edit-bit_commands" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        <div id="edit-{{ command.id }}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                             Edit
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
@@ -79,9 +80,8 @@
                                 w-20 h:20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32"
                                 src="{{ image_url }}">
                     <!-- // Command Label // -->
-                    <h3 class="font-bold tracking-tight text-gray-900 dark:text-white
-                            text-lg md:text-xl lg:text-2xl">
-                        {{ command_name }}
+                    <h3 class="font-bold tracking-tight text-gray-900 dark:text-white text-lg">
+                        <span id="{{ command.id }}-command_name">{{ command_name }}</span>
                     </h3>
                 </div>
                 <!-- // Command clickable area END // -->
