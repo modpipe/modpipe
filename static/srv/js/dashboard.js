@@ -69,15 +69,36 @@ function toggleEditCommands() {
     }
 }
 
-function changeCommandLabel(select){
-    let command_label = document.getElementById('command_label');
-    let commnad = document.getElementById('command')
-    if (select.value === "chat_message"){
+function changeCommandType(select){
+    var command_label = document.getElementById('command_label');
+    var command = document.getElementById('command')
+    var command_wrapper = document.getElementById('command_wrapper')
+    
+    // Make command_wrapper visible if not none
+
+    if (select.value === "none"){
+        command_wrapper.classList.add('invisible')
+    } else if (select.value === "chat_message"){
+        command_wrapper.classList.remove('invisible')
         command_label.innerHTML = "Chat Message";
         command.placeholder = "Enter Chat Message";
+        command.rows = 4;
+    } else if ( select.value === "nightbot_command"){
+        command_wrapper.classList.remove('invisible');
+        command_label.innerHTML = "Nightbot Command";
+        command.placeholder = "Enter Nightbot Command Name";
+        command.rows = 1;
+    } else if ( select.value === "game"){
+        command_wrapper.classList.remove('invisible');
+        command_label.innerHTML = "Game";
+        command.placeholder = "Enter Current Game Name";
+        command.rows = 1;
+    } else if ( select.value === "winner"){
+        command_wrapper.classList.add('invisible');
     } else {
         command_label.innerHTML = "Command Parameters";
-        command.placeholder = "Enter Command Parameters"
+        command.placeholder = "Enter Command Parameters";
+        command.rows = 2;
     }
 }
 
@@ -145,6 +166,28 @@ function launchCommand(cmd){
 
 function confirmDelete() {
     console.log('confirm delete')
+}
+
+function updateCharCount(input,label,length){
+    var labelSpan = document.getElementById(label)
+    var maxLength = length;
+    var strLength = input.value.length;
+    if (maxLength <=15){
+        warnLength = maxLength*(3/4)
+    }else if (maxLength < 20){
+        warnLength = maxLength*(2/3)
+    }else if (maxLength < 100){
+            warnLength = maxLength-10
+    }else{
+        warnLength = maxLength - 20
+    }
+
+    if(strLength > warnLength){
+        labelSpan.classList.add('warning')
+    } else {
+        labelSpan.classList.remove('warning')
+    }
+    labelSpan.innerHTML = strLength + "/"+maxLength
 }
 
 

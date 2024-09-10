@@ -27,18 +27,18 @@
                  w-40 h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 xl:w-56 xl:h-56
                  aspect-square justify-center relative inset-0 flex z-20">
                 
-                <!-- // Delete Overlay START -- INVISIBLE AT LOAD //-->
+                <!-- // Feedback Overlay START -- INVISIBLE AT LOAD //-->
                 <div id="{{ command.id }}-feedback"
                      class="invisible cursor-not-allowed absolute top-0 left-0 bg-gray-900/50 w-full h-full">
                     <div class="h-3/4"></div>
                     <div id="{{ command.id }}-feedback-text"
-                         class="h-1/4 font-bold text-lg">
+                         class="h-1/4 command-font text-md lg:text-lg">
                     </div>
                 </div>
-                <!-- // Delete Overlay END // -->
+                <!-- // Feedback Overlay END // -->
 
                 <!-- // Command clickable area START // -->
-                <div id="{{ command.id }}_content" class=" cursor-pointer" onclick="launchCommand('{{command.id}}')">
+                <div id="{{ command.id }}_content" class="w-full cursor-pointer" onclick="launchCommand('{{command.id}}')">
                     <!-- // Info Tooltip / Edit Area  START // -->
                     <div class="flex justify-between">
                         <!-- // Info Button START // -->
@@ -76,16 +76,15 @@
                     <!-- // Info Tooltip / Edit Area  END // -->
 
                     <!-- // Command Image // -->
-                    <img class="mx-auto mb-4 rounded-full bg-blue-600
+                    <img class="mx-auto mb-2 rounded-full bg-blue-600
                                 w-20 h:20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32"
                                 src="{{ image_url }}">
                     <!-- // Command Label // -->
-                    <h3 class="font-bold tracking-tight text-gray-900 dark:text-white text-lg">
+                    <h3 class="command-font tracking-tight text-gray-900 dark:text-white text-md lg:text-lg">
                         <span id="{{ command.id }}-command_name">{{ command_name }}</span>
                     </h3>
                 </div>
                 <!-- // Command clickable area END // -->
             </div>
             <!-- // Command Block ## {{ command_name }} ##  END // -->
-
 {% endfor %}

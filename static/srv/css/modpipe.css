@@ -1,3 +1,10 @@
+/* GOOGLE FONTS BEGIN */
+.command-font {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+/* GOOGLE FONTS END */
 .flex-wrapper {
     display: flex;
     flex-flow: row nowrap;
@@ -75,4 +82,13 @@
     max-height: 98vh;
     top: 0vh;
     overflow-y: auto;
+  }
+
+  .character_count{
+    font-weight: normal;
+  }
+
+  .warning{
+    color: rgb(249 219 48);
+    font-weight: bold;
   }
