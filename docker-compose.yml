@@ -11,7 +11,7 @@ services:
       - production
     build: .
     container_name: modpipe-web
-    image: modpipe-web:latest
+    image: modpipe/modpipe:latest
     volumes:
       - ./data/venv:/venv
       - ./data/web:/data
@@ -45,7 +45,7 @@ services:
       - dev
     build: .
     container_name: modpipe-web
-    image: modpipe-web:latest
+    image: modpipe/modpipe:latest
     ports:
       - 5000:5000
     volumes:
