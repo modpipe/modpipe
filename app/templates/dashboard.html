@@ -37,7 +37,13 @@
         </div>
         <!-- // CRUD Bar END // -->
         
-
+        {% if commands|length < 1 %}
+        <div class="w-full p-4 m-4 text-black dark:text-gray-100 text-2xl font-bold min-h-64 flex items-center">
+            <p class="w-full text-center">
+                It's awfully empty in here.  Try creating a new command!
+            </p>
+        </div>
+        {% endif %}
         <!-- // Command Blocks START //-->
         <div id="dashboard_command_blocks" 
              class="grid gap-4 lg:gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4
