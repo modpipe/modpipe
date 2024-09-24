@@ -7,6 +7,7 @@ from time import ctime, time
 from urllib.parse import urlencode
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_
 from flask_login import login_user, logout_user, login_required, current_user
 from flask import Blueprint, redirect, url_for, render_template, flash, abort, \
     session, current_app, request
@@ -134,10 +135,11 @@ def oauth2_callback(provider, new_user=False,):
     logs.debug(f"##### Users #####:\n {Users}")
 
     # Find or create the user in the database
-    user = db.session.scalar(db.select(Users).where(Users.email == email))
+    user = db.session.scalar(db.select(Users).where(and_(Users.email == email,Users.provider == provider)))
     if user is None:
         new_user = True
         user = Users(email=email,
+                     provider=provider,
                      oauth_id=oauth_id,
                      username=username,
                      display=display,

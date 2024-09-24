@@ -9,6 +9,7 @@ class Users(db.Model, UserMixin):
     groups = db.Column(JSON)
     username = db.Column(db.String(64))
     email = db.Column(db.String(64))
+    provider = db.Column(db.String(64))
     admin = db.Column(db.String(10))
     display = db.Column(db.String(64))
     avatar = db.Column(db.String(1024))

@@ -47,11 +47,32 @@
                                     <input type="checkbox" id="nightbot_client_secret_show" onclick="togglePassword('nightbot_client_secret')" class="ml-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <span class="ml-1 pt-2 text-sm font-medium text-gray-900 dark:text-white">Show client_secret</span>
                                 </div>
-                                <div class="sm:col-span-2 mb-1 text-xl font-bold text-gray-900 dark:text-white text-right">
+                                <div class="sm:col-span-2 mb-1 text-md font-bold text-gray-900 dark:text-white text-right grid gap-4 grid-cols-2">
+
+                                    <div class="col-span-2 text-center font-thin">
+                                        {% if nightbot_data['renew_date'] %}
+                                        Token Expires on <span>{{nightbot_data['renew_date']}}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-span-1 text-left">
+                                        <button type="button"
+                                        onclick="window.location.href='{{url_for('nightbot.nightbot_oauth_init')}}?state={{url_for('modpipe.dashboard')}}'"
+                                        class="inline-flex items-center px-5 py-2.5
+                                        text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
+                                        focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                            {% if nightbot_data['renew_date'] %}
+                                            Renew Token
+                                            {% else %}
+                                            Authorize
+                                            {% endif %}
+                                        </button>
+                                    </div>
+                                    <div class="col-span-1">
                                     <button type="submit"
                                     class="inline-flex items-center px-5 py-2.5
                                     text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
                                     focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

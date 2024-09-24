@@ -41,27 +41,51 @@
 
               <div class="w-full block flex-grow hidden lg:flex lg:items-center lg:w-auto navmenu">
                 <div class="text-xl lg:flex-grow">
-                
+                    <div class="flex">
                 {% if current_user.is_authenticated %}
-                  <a href="/auth/user/edit" class="block mt-4 lg:inline-block lg:mt-0  text-white  hover:text-blue-200 mr-4">
-                    {{ current_user.email }}
-                  </a>
-                  <a href="/modpipe/dashboard" class="block mt-4 lg:inline-block lg:mt-0 text-white  hover:text-blue-200 mr-4">
-                    dashboard
-                  </a>
-                  <a href="/auth/logout" class="block mt-4 lg:inline-block lg:mt-0 text-white  hover:text-blue-200 mr-4">
-                    logout
-                  </a>
+                        <div class="flex hover:brightness-125">
+                            {% if current_user.avatar %}
+                            <div class="mr-1">
+                                <a href="/auth/user/edit">
+                                <img class="logo h-8 w-8 rounded-full"
+                                       src="{{current_user.avatar}}">
+                                </a>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <a href="/auth/user/edit"
+                                        class ="block mt-4 lg:inline-block lg:mt-0 mr-4
+                                        {% if current_user.provider == 'twitch' %}
+                                                text-purple-700 hover:text-purple-500">
+                                        {% else %}
+                                                text-white  hover:text-blue-200">
+                                        {% endif %}
+                                    
+                                    
+                                    {{current_user.display}}
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <a href="/modpipe/dashboard" class="block mt-4 lg:inline-block lg:mt-0 text-white  hover:text-blue-200 mr-4">
+                                dashboard
+                            </a>
+                        </div>
+                        <div>
+                            <a href="/auth/logout" class="block mt-4 lg:inline-block lg:mt-0 text-white  hover:text-blue-200 mr-4">
+                                logout
+                            </a>
+                        </div>
+                    
                 {% else %}
-
-                  <a onclick="loginModal.show();" class="block mt-4 lg:inline-block lg:mt-0 text-white  hover:text-blue-200 mr-4 cursor-pointer">
-                    login
-                  </a>
+                        <div>
+                            <a onclick="loginModal.show();" class="block mt-4 lg:inline-block lg:mt-0 text-white  hover:text-blue-200 mr-4 cursor-pointer">
+                                login
+                            </a>
+                        </div>
                 {% endif %}
-
-                <a href="https://github.com/modpipe/modpipe" target="_blank" class="block mt-4 lg:inline-block lg:mt-0 text-white  hover:text-blue-200">
-                  github
-                </a>
+                    </div>
                 </div>
               </div>
         </nav>
@@ -75,7 +99,7 @@
                 <div class="md:flex md:justify-between">
                     <div class="mb-6 md:mb-0">
                         <div class="flex items-center flex-shrink-0 text-white mr-6">
-                            <a href="/modpipe" class="block mt-4 lg:inline-block lg:mt-0 text-white">
+                            <a target="_blank" href="https://github.com/modpipe/modpipe" class="block mt-4 lg:inline-block lg:mt-0 text-white">
                             <div class="font-semibold text-4xl tracking-tight flex flex-row">
                                 <div class="basis-10">
                                     <img class="logo h-16" src="/img/pipebot-icon-dark.svg">

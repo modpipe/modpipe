@@ -3,7 +3,7 @@ import requests
 import json
 import time
 
-from flask import redirect, request, jsonify
+from flask import redirect, request, jsonify, url_for
 
 from app import logs
 from app import db
@@ -69,6 +69,8 @@ class NightBot:
                   required=['client_id'],
                   state=None):
         client = self.get_client_from_db(id)
+        if not client:
+            return jsonify({"error": "no_client"})
         if "state" in request.args:
                 state = request.args['state']
         else:

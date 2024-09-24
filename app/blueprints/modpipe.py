@@ -1,6 +1,7 @@
 import os
 import secrets
 import requests
+import time
 
 from urllib.parse import urlencode
 from flask_sqlalchemy import SQLAlchemy
@@ -151,14 +152,26 @@ def dashboard(nightbot_data={},twitch_data={}):
     logs.debug(f"NIGHTBOT: {nightbotdb}")
     logs.debug(f"NIGHTBOT EXISTS: {nightbot_exists}")
 
-    nightbot_data['display_name'] = nightbotdb.displayName if nightbot_exists else ""
-    nightbot_data['client_id'] = nightbotdb.client_id if nightbot_exists else ""
-    nightbot_data['client_secret'] = nightbotdb.client_secret if nightbot_exists else ""
+    if nightbot_exists:
+        nightbot_data['display_name'] = nightbotdb.displayName
+        nightbot_data['client_id'] = nightbotdb.client_id
+        nightbot_data['client_secret'] = nightbotdb.client_secret
+        renew_before = nightbotdb.token['renew_before'] if "renew_before" in nightbotdb.token else False
+        if renew_before:
+            nightbot_data['renew_date'] = time.strftime('%Y-%m-%d %H:%M:%S',time.gmtime(renew_before))
+        else:
+            nightbot_data['renew_date'] = False
 
-    twitch_data['display_name'] = twitchdb.displayName if twitch_exists else ""
-    twitch_data['client_id'] = twitchdb.client_id if twitch_exists else ""
-    twitch_data['client_secret'] = twitchdb.client_secret if twitch_exists else ""
-
+    if twitch_exists:
+        twitch_data['display_name'] = twitchdb.displayName
+        twitch_data['client_id'] = twitchdb.client_id
+        twitch_data['client_secret'] = twitchdb.client_secret
+        twitch_data['token'] = twitchdb.token
+        renew_before = twitchdb.token['renew_before'] if "renew_before" in twitchdb.token else False
+        if renew_before:
+            twitch_data['renew_date'] = time.strftime('%Y-%m-%d %H:%M:%S',time.gmtime(renew_before))
+        else:
+            twitch_data['renew_date'] = False
 
     logs.debug(f"NIGHTBOT DATA: {nightbot_data}")
     logs.debug(f"TWITCH DATA  : {twitch_data}")
@@ -177,14 +190,16 @@ def config(nightbot_data={},twitch_data={}):
     logs.debug(f"TWITCH EXISTS: {twitch_exists}")
     logs.debug(f"NIGHTBOT: {nightbotdb}")
     logs.debug(f"NIGHTBOT EXISTS: {nightbot_exists}")
+    
+    if nightbot_exists:
+        nightbot_data['display_name'] = nightbotdb.displayName
+        nightbot_data['client_id'] = nightbotdb.client_id
+        nightbot_data['client_secret'] = nightbotdb.client_secret
 
-    nightbot_data['display_name'] = nightbotdb.displayName if nightbot_exists else ""
-    nightbot_data['client_id'] = nightbotdb.client_id if nightbot_exists else ""
-    nightbot_data['client_secret'] = nightbotdb.client_secret if nightbot_exists else ""
-
-    twitch_data['display_name'] = twitchdb.displayName if twitch_exists else ""
-    twitch_data['client_id'] = twitchdb.client_id if twitch_exists else ""
-    twitch_data['client_secret'] = twitchdb.client_secret if twitch_exists else ""
+    if twitch_exists:
+        twitch_data['display_name'] = twitchdb.displayName
+        twitch_data['client_id'] = twitchdb.client_id
+        twitch_data['client_secret'] = twitchdb.client_secret
 
 
     logs.debug(f"NIGHTBOT DATA: {nightbot_data}")

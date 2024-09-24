@@ -166,6 +166,12 @@ function launchCommand(cmd){
         return response.json();
     })
     .then(data => {
+        if ("error" in data){
+            if (data.error == "no_client"){
+                console.log("NO CLIENT!!!");
+                window.location.href="/modpipe/dashboard?config";
+            }
+        }
         // Do something with the data
         // Make the command block glow green and fade back to normal after timeout is over
         console.log(data);
@@ -173,6 +179,8 @@ function launchCommand(cmd){
 
     })
     .catch(error => {
+        console.log("launchCommand ERROR");
+        console.log(error);
         commandFeedbackEnd(feebackElId);
     });
 }
@@ -201,6 +209,11 @@ function updateCharCount(input,label,length){
         labelSpan.classList.remove('warning')
     }
     labelSpan.innerHTML = strLength + "/"+maxLength
+}
+
+
+function epochToLocalTime(epoch,el) {
+    el.innerHTML = new Date(epoch);
 }
 
 
