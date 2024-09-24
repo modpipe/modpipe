@@ -154,7 +154,7 @@ def oauth2_callback(provider, new_user=False,):
     login_user(user)
 
     # Onboard User and allow them to edit their profile
-    user = db.session.scalar(db.select(Users).where(Users.email == email))
+    user = db.session.scalar(db.select(Users).where(and_(Users.email == email),Users.provider == provider))
     if new_user:
         return render_template('onboarding.html',user=user)
     else:
@@ -169,7 +169,7 @@ def view_user():
 @auth.route('/user/edit', methods=['GET'])
 @login_required
 def edit_user():
-    user = db.session.scalar(db.select(Users).where(Users.id == current_user.id))
+    user = db.session.scalar(db.select(Users).where(and_(Users.id == current_user.id,Users.provider == current_user.provider)))
     return render_template('user_form.html', user=user)
 
 @auth.route('/user/update', methods=['POST'])
@@ -178,7 +178,7 @@ def edit_user_POST():
     fields = ['type','id','groups','username','email','admin','display','avatar','bio', 'onboarding']
     form_data = get_form_data(fields)
 
-    user = db.session.scalar(db.select(Users).where(Users.email == form_data['email']))
+    user = db.session.scalar(db.select(Users).where(and_(Users.id == current_user.id,Users.provider == current_user.provider)))
     display_change_date = int(time()) - 2592000
     user.username = f"""{form_data['username']}"""
     user.display = f"""{form_data['display']}"""
