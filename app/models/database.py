@@ -35,6 +35,7 @@ class NightBot(db.Model):
     admin = db.Column(db.Boolean(), default=False)
     client_id = db.Column(db.String(32))
     client_secret = db.Column(db.String(64))
+    token = db.Column(JSON)
     last_used = db.Column(db.Integer())
 
 class Twitch(db.Model):

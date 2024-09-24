@@ -35,6 +35,65 @@ def index(welcome=False):
         welcome=True
     return render_template('main.html',welcome=welcome)
 
+@modpipe.route('/command/new',methods=['POST'])
+@login_required
+def command_new(form_data={}):
+    fields = ['display_name',
+              'type',
+              'users',
+              'groups',
+              'command']
+    form_data = get_form_data(fields)
+    logs.info(form_data)
+    commands = db.session.query(CommandsDB).filter_by(owner=current_user.id).filter_by(name=form_data['display_name']).scalar()
+    logs.info(f"Command Exists: {commands}")
+    if commands is not None:
+        flash(f"This command name already exists.  Changing new command name to {form_data['display_name']}-new")
+        form_data['display_name'] = f"{form_data['display_name']}-new"
+    new_command = CommandsDB(
+                                owner = current_user.id,
+                                name = form_data['display_name'],
+                                type = form_data['type'],
+                                users = form_data['users'],
+                                groups = form_data['groups'],
+                                command = form_data['command']
+                            )
+    db.session.add(new_command)
+    db.session.commit()
+    return redirect(url_for('modpipe.dashboard').replace('http://','https://'))
+
+@modpipe.route('/command/<cmd>/update')
+@login_required
+def command_update(cmd):
+    command = db.session.query(CommandsDB.filter_by(id=cmd)).scalar()
+    if command is not None and command.owner == current_user.id:
+        fields = ["display_name",
+                  "type",
+                  "users",
+                  "groups",
+                  "command",
+                  "short_description",
+                  "long_description",
+                  "timeout"
+        ]
+        form_data = get_form_data(fields)
+        logs.info(form_data)
+        for data in ['nightbot_command',
+                     'chat_message'
+                    ]:
+            command.service = "nightbot" if form_data['type'] == "data" else "twitch"
+        command.name = form_data['display_name']
+        command.type = form_data['type']
+        command.users = form_data['users']
+        command.groups = form_data['groups']
+        command.short_description = form_data['short_description']
+        command.long_description = form_data['long_description']
+        command.timeout = form_data['timeout']
+
+        db.session.commit()
+        return redirect(url_for('modpipe.dashboard').replace('http://','https://'))
+    return jsonify({"error": "command not found."})
+
 @modpipe.route('/command/<cmd>')
 def command_execute(cmd):
     return_json = {
@@ -56,9 +115,10 @@ def command_execute(cmd):
         checkback = None
     if checkback:
         command = db.session.scalar(db.select(CommandsDB).where(CommandsDB.id == cmd))
-        if command:
-            # LOGIC FOR COMMAND ACTION GOES HERE
-
+        if command and command.owner == current_user.id:
+            if command.type == "chat_message":
+                return redirect(f'/nightbot/api/channel/send/{cmd}')
+            
             # Build Feedback
             return_json['id'] = cmd
             return_json['name'] = command.name
@@ -158,29 +218,6 @@ def config_save(service_type):
     db.session.add(service)
     db.session.commit()
     return redirect(f"{url_for('modpipe.dashboard').replace('http://','https://')}?config")
-
-@modpipe.route('/command/new',methods=['POST'])
-@login_required
-def command_new(form_data={}):
-    fields = ['display_name','type','users','groups','command']
-    form_data = get_form_data(fields)
-    logs.info(form_data)
-    commands = db.session.query(CommandsDB).filter_by(owner=current_user.id).filter_by(name=form_data['display_name']).scalar()
-    logs.info(f"Command Exists: {commands}")
-    if commands is not None:
-        flash(f"This command name already exists.  Changing new command name to {form_data['display_name']}-new")
-        form_data['display_name'] = f"{form_data['display_name']}-new"
-    new_command = CommandsDB(
-                                owner = current_user.id,
-                                name = form_data['display_name'],
-                                type = form_data['type'],
-                                users = form_data['users'],
-                                groups = form_data['groups'],
-                                command = form_data['command']
-                            )
-    db.session.add(new_command)
-    db.session.commit()
-    return redirect(url_for('modpipe.dashboard').replace('http://','https://'))
 
 @modpipe.route('/authorize')
 @login_required

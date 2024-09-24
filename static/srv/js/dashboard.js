@@ -101,49 +101,62 @@ function changeCommandType(select){
         command.rows = 2;
     }
 }
+const feedbackColorsOK = {
+    bg:     "bg-emerald-400/40",
+};
 
-function commandFeedback(id,result) {
+const feedbackColorsFAIL = {
+    bg:    "bg-red-400/40",
+};
+
+function commandFeedbackOK(id) {
+    let feedbackEl = document.getElementById(id);
+    feedbackEl.classList.remove(feedbackColorsFAIL.bg)
+    feedbackEl.classList.add(feedbackColorsOK.bg);
+    feedbackEl.classList.remove("invisible");
+}
+
+function commandFeedbackFAIL(id){
+    let feedbackEl = document.getElementById(id);
+    feedbackEl.classList.add(feedbackColorsFAIL.bg);
+    feedbackEl.classList.remove(feedbackColorsOK.bg)
+    feedbackEl.classList.remove("invisible");
+}
+
+function commandFeedbackEnd(id) {
+    let feedbackEl = document.getElementById(id);
+    feedbackEl.classList.remove(feedbackColorsFAIL.bg);
+    feedbackEl.classList.remove(feedbackColorsOK.bg);
+    feedbackEl.classList.add('invisible');
+    
+}
+
+async function commandFeedback(id,result) {
     if (result.timeout === "None" || result.timeout === "0" ){
-        commandTimeout = 10000;
+        var commandTimeout = 5000;
     } else {
-        commandTimeout = parseInt(result.timeout) * 1000;
+        var commandTimeout = parseInt(result.timeout) * 1000;
     }
     commandStatusCode = result.status.code;
     commandMessage = result.feedback;
     if (commandStatusCode === 200){
-        feedbackBg = "bg-emerald-400/25";
-        feedbackTextBg = "bg-green-950"
-        feedbackColor = "text-white";
+        commandFeedbackOK(id)
     } else {
-        feedbackBg = "bg-red-400";
-        feedbackColor = "text-red-950/25";
+        commandFeedbackFAIL(id)
     }
 
-    feedbackEl = document.getElementById(id);
-    feedbackTextEl = document.getElementById(id+'-text');
-    console.log(commandStatusCode);
-    console.log(commandTimeout);
-    console.log(feedbackBg);
-    console.log(feedbackColor);
-    console.log(commandMessage);
-
-    feedbackEl.classList.add(feedbackBg);
-    feedbackEl.classList.add(feedbackColor);
-    feedbackTextEl.classList.add(feedbackTextBg);
-    feedbackTextEl.innerHTML = commandMessage;
-    feedbackEl.classList.remove("invisible");
-    sleep(commandTimeout).then(() => {
-        feedbackEl.classList.add("invisible");
-        feedbackEl.classList.remove(feedbackBg);
-        feedbackEl.classList.remove(feedbackColor);
-        feedbackTextEl.classList.remove(feedbackTextBg);
-        feedbackTextEl.innerHTML = "";
-    })
-    
+    let feedbackEl = document.getElementById(id);
+    let feedbackTextEl = document.getElementById(id+'-text');
+    await sleep(commandTimeout);
+    console.log('id: '+id+' ## timer ended');
+    commandFeedbackEnd(id)
 }
 
 function launchCommand(cmd){
+    let feebackElId=cmd+'-feedback';
+    commandFeedbackOK(feebackElId);
     endpoint = "command/"+cmd+"?chk="+makeId(10)
+    //endpoint = "/nightbot/api/channel/send/"+cmd+"?chk="+makeId(10)
     fetch(endpoint)
     .then(response => {
         if (!response.ok) {
@@ -156,11 +169,11 @@ function launchCommand(cmd){
         // Do something with the data
         // Make the command block glow green and fade back to normal after timeout is over
         console.log(data);
-        commandFeedback(cmd+'-feedback',data.result)
+        commandFeedback(feebackElId,data.result);
 
     })
     .catch(error => {
-        
+        commandFeedbackEnd(feebackElId);
     });
 }
 

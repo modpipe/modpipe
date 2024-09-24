@@ -59,13 +59,12 @@ class NightBot:
     def ready(self,client={},required=['client_id']):
         ''' Checks to see if 'client_id' and 'client_secret' are provided
         '''
-        ready = False
         for requirement in required:
             if requirement in client and client[requirement]:
-                ready += True 
+                pass
             else: 
-                ready += False
-        return ready
+                return False
+        return True
         
     def index(self):
         ''' Generates the index page
