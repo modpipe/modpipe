@@ -16,17 +16,11 @@ from app.models.database import Users
 from app.models.database import NightBot as NightBotDB
 from app.models.database import Twitch as TwitchDB
 from app.models.database import Commands as CommandsDB
-from app.helpers.nightbot import NightBot
-from app.helpers.validate import is_url
 from app import app
 from app.helpers.modpipe import get_form_data
 
 with app.app_context():
     nightbot_config = current_app.config['NIGHTBOT_OAUTH'] if 'NIGHTBOT_OAUTH' in current_app.config else None
-
-
-
-nb = NightBot()
 
 modpipe = Blueprint('modpipe', __name__)
 
@@ -156,11 +150,14 @@ def dashboard(nightbot_data={},twitch_data={}):
         nightbot_data['display_name'] = nightbotdb.displayName
         nightbot_data['client_id'] = nightbotdb.client_id
         nightbot_data['client_secret'] = nightbotdb.client_secret
-        renew_before = nightbotdb.token['renew_before'] if "renew_before" in nightbotdb.token else False
+        renew_before = False
+        if nightbotdb.token:
+            if "renew_before" in nightbotdb.token:
+                renew_before = nightbotdb.token['renew_before']
+            else:
+                renew_before = False
         if renew_before:
             nightbot_data['renew_date'] = time.strftime('%Y-%m-%d %H:%M:%S',time.gmtime(renew_before))
-        else:
-            nightbot_data['renew_date'] = False
 
     if twitch_exists:
         twitch_data['display_name'] = twitchdb.displayName
@@ -233,17 +230,3 @@ def config_save(service_type):
     db.session.add(service)
     db.session.commit()
     return redirect(f"{url_for('modpipe.dashboard').replace('http://','https://')}?config")
-
-@modpipe.route('/authorize')
-@login_required
-def oauth_authorize():
-    return nb.oauth2_authorize(client_id="")
-
-@modpipe.route('/callback')
-@login_required
-def oauth_callback():
-    return nb.oauth2_callback(client_id="",client_secret="")
-
-@modpipe.route('/endpoint')
-def endpoint():
-    return jsonify({"Ansswer": "You're Awesome!"})
