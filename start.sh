@@ -10,4 +10,4 @@ fi
 source /data/venv/bin/activate
 pip install -r requirements.txt
 
-flask --app modpipe-web.py run -h 0.0.0.0 --debug
+flask --app modpipe.py run -h 0.0.0.0 --debug
