@@ -5,6 +5,7 @@ import time
 
 from urllib.parse import urlencode
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_, or_
 from flask_login import current_user, login_required
 from flask import Blueprint, redirect, url_for, render_template, flash, abort, jsonify,\
                   session, current_app, request
@@ -12,10 +13,11 @@ from flask import Blueprint, redirect, url_for, render_template, flash, abort, j
 from app import db
 from app import login
 from app import logs
-from app.models.database import Users
+from app.models.database import Users as UsersDB
 from app.models.database import NightBot as NightBotDB
 from app.models.database import Twitch as TwitchDB
 from app.models.database import Commands as CommandsDB
+from app.models.database import Groups as GroupsDB
 from app import app
 from app.helpers.modpipe import get_form_data
 
@@ -141,11 +143,19 @@ def dashboard(nightbot_data={},twitch_data={}):
     twitchdb = TwitchDB.query.filter_by(owner=current_user.id).scalar()
     twitch_exists = twitchdb is not None
     commands = CommandsDB.query.filter_by(owner=current_user.id).all()
+    command_types = [
+        "chat_message",
+        "nightbot_command",
+        "commercial",
+        "winner",
+        "game"
+    ]
+    groups = GroupsDB.query.filter_by(owner=current_user.id).all()
     logs.debug(f"TWITCH: {twitchdb}")
     logs.debug(f"TWITCH EXISTS: {twitch_exists}")
     logs.debug(f"NIGHTBOT: {nightbotdb}")
     logs.debug(f"NIGHTBOT EXISTS: {nightbot_exists}")
-
+    
     if nightbot_exists:
         nightbot_data['display_name'] = nightbotdb.displayName
         nightbot_data['client_id'] = nightbotdb.client_id
@@ -174,7 +184,7 @@ def dashboard(nightbot_data={},twitch_data={}):
     logs.debug(f"TWITCH DATA  : {twitch_data}")
 
 
-    return render_template('dashboard.html',nightbot_data=nightbot_data,twitch_data=twitch_data,commands=commands)
+    return render_template('dashboard.html',nightbot_data=nightbot_data,twitch_data=twitch_data,commands=commands,command_types=command_types,groups=groups)
 
 @modpipe.route('/config', methods=['GET'])
 @login_required

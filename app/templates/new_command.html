@@ -34,7 +34,7 @@
                                     <select id="type" name="type" onchange="changeCommandType(this)"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             <option value="none" selected="">Choose Command Type</option>
-                                        {% for command_type in ["chat_message","nightbot_command","commercial","winner","game"] %}
+                                        {% for command_type in command_types %}
                                             <option value="{{command_type}}">{{ command_type.replace("_", " ").lower().capitalize() }}</option>
                                         {% endfor %}
                                     </select>
@@ -78,9 +78,7 @@
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
                                             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 no-scrollbar
                                             dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        {% for user in ["bboydax","beardedtek","jace","chaoticneutral"] %}
-                                            <option value="{{level}}">{{ user.replace("_", " ").lower().capitalize() }}</option>
-                                        {% endfor %}
+                                            <option selected value="{{current_user.display}}">{{ current_user.display.replace("_", " ").lower().capitalize() }}</option>
                                     </select>
                                 </div>
 
@@ -90,15 +88,19 @@
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
                                             focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 no-scrollbar
                                             dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        {% for level in ["owner","moderator","vip","all"] %}
-                                            <option value="{{level}}">{{ level.replace("_", " ").lower().capitalize() }}</option>
+                                        {% for group in groups %}
+                                            <option
+                                            {% if group.name.lower() == "owner" %}
+                                                selected
+                                            {% endif %}
+                                                value="{{group.owner}}">{{ group.name.replace("_", " ").lower().capitalize() }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
 
                                 <div class="sm:col-span-2">
-                                    <label id="long_description_label" for="long_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Long Description for documentation</label>
-                                    <textarea id="long_description" name="long_description" rows="4" placeholder="Enter Command Required Data"
+                                    <label id="long_description_label" for="long_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Long Description</label>
+                                    <textarea id="long_description" name="long_description" rows="4" placeholder="Description of command for documentation purposes"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300
                                         focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
                                         dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>

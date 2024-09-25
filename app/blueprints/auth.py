@@ -16,6 +16,7 @@ from app import db
 from app import login
 from app import logs
 from app.models.database import Users
+from app.models.database import Groups
 from app.helpers.modpipe import get_form_data
 
 auth = Blueprint('auth', __name__)
@@ -152,6 +153,14 @@ def oauth2_callback(provider, new_user=False,):
 
     # Log the user in
     login_user(user)
+    # Make sure the user's default groups have been created
+    create_user_groups = True if Groups.query.filter_by(owner=current_user.id).first() is None else False
+    if create_user_groups:
+        logs.info(f"Creating default groups for {current_user.display}")
+        for name in ['Owner','Moderator','VIP','Everyone']:
+            new_group = Groups(owner=current_user.id,name=name)
+            db.session.add(new_group)
+            db.session.commit()
 
     # Onboard User and allow them to edit their profile
     user = db.session.scalar(db.select(Users).where(and_(Users.email == email),Users.provider == provider))
