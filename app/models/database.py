@@ -52,17 +52,6 @@ class Twitch(db.Model):
     client_secret = db.Column(db.String(64))
     last_used = db.Column(db.Integer())
 
-class Messages(db.Model):
-    __tablename__ = 'messages'
-
-    id = db.Column(db.Integer, primary_key=True)
-    owner = db.Column(db.Integer())
-    users = db.Column(JSON)
-    groups = db.Column(JSON)
-    name = db.Column(db.String(64))
-    message = db.Column(db.String(6000))
-    last_used = db.Column(db.Integer())
-
 class Commands(db.Model):
     __tablename__ = 'commands'
 

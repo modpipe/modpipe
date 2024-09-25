@@ -4,6 +4,7 @@ from time import ctime
 from flask import Flask, redirect, url_for
 from flask.logging import default_handler
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import event
 from flask_login import LoginManager
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -45,3 +46,18 @@ def timectime(s):
 @app.route('/index')
 def index():
     return redirect(url_for('modpipe.index').replace('http://','https://'))
+
+@event.listens_for(database.Groups.__table__, 'after_create')
+def create_groups(*args, **kwargs):
+    # This creates default groups in the database
+    db.session.add(database.Groups(owner = 0,name = "owner"))
+    db.session.add(database.Groups(owner = 0,name = "moderator"))
+    db.session.add(database.Groups(owner = 0,name = "vip"))
+    db.session.add(database.Groups(owner = 0,name = "everyone"))
+
+    db.session.commit()
+
+@event.listens_for(database.Commands.__table__, 'after_create')
+def create_commands(*args, **kwargs):
+    # This creates default commands in the database
+    pass
