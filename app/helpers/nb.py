@@ -114,7 +114,8 @@ class NightBot:
             logs.info(f"self.state  : {self.state}")
             logs.info(f"state       : {state}")
             if state != self.state:
-                redirect_url = f"{state}?auth=true"
+                redirect_url = f"{state}&" if "?" in redirect_url else "?"
+                redirect_url += "auth=true"
                 logs.info(f"redirect_url  :  {redirect_url}")
                 return redirect(redirect_url)
             return {"token_result": token_result}
