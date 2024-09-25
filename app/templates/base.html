@@ -47,7 +47,7 @@
                             {% if current_user.avatar %}
                             <div class="mr-1">
                                 <a href="/auth/user/edit">
-                                <img class="logo h-8 w-8 rounded-full"
+                                <img class="logo mt-3 lg:mt-0 h-8 rounded-full"
                                        src="{{current_user.avatar}}">
                                 </a>
                             </div>
@@ -55,13 +55,7 @@
                             <div>
                                 <a href="/auth/user/edit"
                                         class ="block mt-4 lg:inline-block lg:mt-0 mr-4
-                                        {% if current_user.provider == 'twitch' %}
-                                                text-purple-700 hover:text-purple-500">
-                                        {% else %}
                                                 text-white  hover:text-blue-200">
-                                        {% endif %}
-                                    
-                                    
                                     {{current_user.display}}
                                 </a>
                             </div>
