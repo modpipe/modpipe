@@ -188,5 +188,8 @@ def edit_user_POST():
 
     db.session.commit()
     if form_data['type'] == "onboarding":
-        return redirect(f"{url_for('modpipe.index').replace('http://','https://')}?welcome")
+        home = url_for('modpipe.index')
+        if current_user.is_authenticated:
+            home = url_for('modpipe.dashboard')
+        return redirect(f"{home}?welcome")
     return redirect(url_for('auth.edit_user').replace('http://','https://'))
