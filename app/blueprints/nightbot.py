@@ -1,18 +1,23 @@
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import login_user, logout_user, login_required, current_user
-from flask import Blueprint, redirect, url_for, render_template, flash, abort, \
-    session, current_app, request, jsonify
+import os
+
+from flask_login import login_required, current_user
+from flask import Blueprint, redirect, url_for, request, jsonify
 
 from app import logs
 from app import db
 from app import login
 from app.models.database import Users
-from app.models.database import NightBot as NightbotDB
-from app.models.database import Commands as CommandsDB
-
 from app.models.api import API as api_model
 from app.helpers.nb import NightBot
-nb = NightBot(callback_url='https://modpipe.jeandr.net/nightbot/oauth/callback')
+
+
+DOMAIN = os.environ.get('DOMAIN') if os.environ.get('DOMAIN') else "example.com"
+APP_URL = os.environ.get('APP_URL') if os.environ.get('APP_URL') else f"https://modpipe.{DOMAIN}"
+
+callback_url = f"{APP_URL}/nightbot/oauth/callback"
+logs.info(f"callback_url  : {callback_url}")
+
+nb = NightBot(callback_url=callback_url)
 api = api_model()
 
 nightbot = Blueprint('nightbot', __name__)
@@ -32,7 +37,7 @@ def nightbot_oauth_init():
 @nightbot.route('/oauth/callback')
 @login_required
 def nightbot_oauth_callback():
-    result = nb.callback(current_user.id)
+    result = nb.callback(current_user.id) 
     logs.info(f"result  : {result}")
     if result:
         return result

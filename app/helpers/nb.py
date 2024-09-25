@@ -32,7 +32,8 @@ class NightBot:
         self.scope = scope if scope else "channel channel_send commands commands_default regulars subscribers"
  
     def get_client_from_db(self,id=None,client={}):
-        nightbotdb = db.session.scalar(db.select(NightBotDB).where(NightBotDB.owner == id))
+        nightbotdb = NightBotDB.query.filter_by(owner=id).scalar()
+        logs.info(f"nightbotdb  : {nightbotdb}")
         if nightbotdb:
             client['client_id'] = nightbotdb.client_id
             client['client_secret'] = nightbotdb.client_secret
@@ -44,7 +45,7 @@ class NightBot:
     def store_token_in_db(self,id=None,token=None):
         if id:
             if token:
-                nightbotdb = db.session.scalar(db.select(NightBotDB).where(NightBotDB.owner == id))
+                nightbotdb = NightBotDB.query.filter_by(owner=id).scalar()
                 if nightbotdb:
                     nightbotdb.token = token
                     db.session.add(nightbotdb)
@@ -163,7 +164,7 @@ class NightBot:
         else:
             logs.info(f"bearer  :  {bearer}")
             logs.info("Bearer Present, continue")
-            command = db.session.scalar(db.select(CommandsDB).where(CommandsDB.id == id))
+            command = CommandsDB.query.filter_by(id=id).scalar()
             msg = ""
             if command and command.owner == userid and command.type == "chat_message":
                 logs.info("VALID CHANNEL MESSAGE COMMAND")
