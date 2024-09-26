@@ -1,3 +1,27 @@
+/* Scrollbar */
+/* scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(17 24 39);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 /* GOOGLE FONTS BEGIN */
 .command-font {
   font-family: "Titillium Web", sans-serif;

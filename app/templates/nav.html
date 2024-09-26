@@ -1,0 +1,65 @@
+<nav class="flex items-center justify-between flex-wrap bg-blue-950 p-2 pl-4">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <a href="/modpipe" class="block mt-4 sm:inline-block sm:mt-0 text-white">
+        <div class="font-semibold text-4xl tracking-tight flex flex-row">
+            <div class="basis-10">
+                <img class="logo h-10" src="/img/pipebot-icon-dark.svg">
+            </div>
+            <div class="basis-full relative -top-1">
+                <span class="font-normal text-2xl">mod</span><span class="font-bold text-2xl">PIPE</span>
+            </div>
+        </div>
+        </a>
+      </div>
+
+      <div class="block sm:hidden">
+        <button class="flex items-center px-3 py-2 border rounded text-white  hover:text-blue-200 hover:border-white mobile-menu">
+                <svg class="fill-current h-3 w-3" 
+                    viewBox="0 0 20 20" 
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </a>
+        </button>
+        
+      </div>
+
+      <div class="w-full block flex-grow hidden sm:flex sm:items-center sm:w-auto navmenu">
+        <div class="text-xl sm:flex-grow">
+            <div class="flex">
+        {% if current_user.is_authenticated %}
+                <div class="flex hover:brightness-125">
+                    {% if current_user.avatar %}
+                    <div class="mr-1">
+                        <a href="/auth/user/edit">
+                        <img class="logo mt-3 sm:mt-0 h-8 rounded-full"
+                               src="{{current_user.avatar}}">
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <a href="/auth/user/edit"
+                                class ="block mt-4 sm:inline-block sm:mt-0 mr-4
+                                        text-white  hover:text-blue-200">
+                            {{current_user.display}}
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <a href="/auth/logout" class="block mt-4 sm:inline-block sm:mt-0 text-white  hover:text-blue-200 mr-4">
+                        logout
+                    </a>
+                </div>
+            
+        {% else %}
+                <div>
+                    <a onclick="loginModal.show();" class="block mt-4 sm:inline-block sm:mt-0 text-white  hover:text-blue-200 mr-4 cursor-pointer">
+                        login
+                    </a>
+                </div>
+        {% endif %}
+            </div>
+        </div>
+      </div>
+</nav>

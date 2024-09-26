@@ -2,16 +2,23 @@
 <!-- New Command Modal -->
 <div id="config-popup" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-4xl h-full md:h-auto">
-        <div class="relative p-4 bg-white rounded-lg shadow md:p-8
+        <div class="enable_modal_scrolling no-scrollbar relative p-4 bg-white rounded-lg shadow md:p-8
              dark:bg-gray-800 border-2 rounded-lg border-gray-500 dark:border-gray-400">
             <div class="mb-4 text-sm font-light text-gray-500 dark:text-gray-400">
 
                 <div class="px-4 mx-auto max-w-2xl">
-                    <h1 class="mb-1 text-2xl font-bold text-gray-900 dark:text-white">Service Configuration</h1>
-                    <p class="text-md text-gray-900 dark:text-white mb-6">
-                        Below are options to link your accounts to our service.  Please read our <a class="font-semibold underline" href="/privacy">Privacy Policy</a> to fully understand what and
-                        why we collect this information, along with how we can use and safeguard this information.
-                    </p>
+                    <h1 class=" mb-1 text-2xl font-bold text-gray-900 dark:text-white">Configuration</h1>
+                        <p class=" text-md font-bold text-gray-900 dark:text-white mb-2">
+                            Enter your credentials below to link your accounts to modPIPE.
+                        </p>
+                        <p class="text-gray-900 dark:text-white mb-2">
+                            We store your client_id, client_secret, and after you choose to authenticate,
+                            a token which remains valid for 30 days.
+                        </p>
+                        <p class="text-gray-900 dark:text-white mb-2">
+                            Please see our 'Data Retention and Privacy Policy'
+                            for more information.  By continuing to use this service, you agree to modPIPE's Terms and Conditions.
+                        </p>
                         <!-- NightBot -->
                         <form method="post" action="config/nightbot">
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
@@ -56,7 +63,7 @@
                                     </div>
                                     <div class="col-span-1 text-left">
                                         <button type="button"
-                                        onclick="window.location.href='{{url_for('nightbot.nightbot_oauth_init')}}?state={{url_for('modpipe.dashboard')}}?config'"
+                                        onclick="window.location.href='{{url_for('nightbot.nightbot_oauth_init')}}?state={{url_for('modpipe.dashboard')}}?config';"
                                         class="inline-flex items-center px-5 py-2.5
                                         text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
                                         focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
@@ -126,7 +133,7 @@
 
             </div>
             <div class="justify-between items-center pt-0 space-y-4 sm:flex sm:space-y-0">
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">What data do we collect?</a>
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Data Retention Policy</a>
                 <div class="items-center space-y-4 sm:space-x-4 sm:flex sm:space-y-0">
                     <button class="h-12 inline-flex items-center px-5 py-2.5 mt-4 mx-4 sm:mt-6 text-sm font-medium text-center
                             text-gray-900 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300

@@ -28,6 +28,8 @@ modpipe = Blueprint('modpipe', __name__)
 
 @modpipe.route('/')
 def index(welcome=False):
+    if current_user.is_authenticated:
+        return redirect(url_for('modpipe.dashboard'))
     if 'welcome' in request.args:
         welcome=True
     return render_template('main.html',welcome=welcome)
