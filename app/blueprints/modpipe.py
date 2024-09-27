@@ -176,11 +176,14 @@ def dashboard(nightbot_data={},twitch_data={}):
         twitch_data['client_id'] = twitchdb.client_id
         twitch_data['client_secret'] = twitchdb.client_secret
         twitch_data['token'] = twitchdb.token
-        renew_before = twitchdb.token['renew_before'] if "renew_before" in twitchdb.token else False
+        renew_before = False
+        if twitchdb.token:
+            if "renew_before" in twitchdb.token:
+                renew_before = twitchdb.token['renew_before']
+            else:
+                renew_before = False
         if renew_before:
             twitch_data['renew_date'] = time.strftime('%Y-%m-%d %H:%M:%S',time.gmtime(renew_before))
-        else:
-            twitch_data['renew_date'] = False
 
     logs.debug(f"NIGHTBOT DATA: {nightbot_data}")
     logs.debug(f"TWITCH DATA  : {twitch_data}")

@@ -24,9 +24,6 @@ class NightBot:
         self.authorize_url = authorize_url
         self.token_url = token_url
         self.response_type = "code"
-        self.code = None
-        self.bearer = None
-        self.api_user = None
         self.callback_url = callback_url
         self.state = secrets.token_urlsafe(16)
         self.scope = scope if scope else "channel channel_send commands commands_default regulars subscribers"

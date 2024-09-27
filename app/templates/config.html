@@ -23,7 +23,7 @@
                         <form method="post" action="config/nightbot">
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="sm:col-span-2 ml-2 mb-1 text-2xl font-bold text-gray-900 dark:text-white">
-                                NightBot
+                                NightBot{% if nightbot_data['renew_date'] %} <span class="text-green-500">✓</span>{% else %} <span class="text-red-500">🗙</span>{% endif %}
                             </div>
                         </div>
                         <div class="p-4 mb-4 border-solid border-2 rounded-md border-blue-900">
@@ -63,12 +63,12 @@
                                     </div>
                                     <div class="col-span-1 text-left">
                                         <button type="button"
-                                        onclick="window.location.href='{{url_for('nightbot.nightbot_oauth_init')}}?state={{url_for('modpipe.dashboard')}}?config';"
+                                        onclick="window.location.href='/services/nightbot/oauth?state={{url_for('modpipe.dashboard')}}?config';"
                                         class="inline-flex items-center px-5 py-2.5
                                         text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
                                         focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                             {% if nightbot_data['renew_date'] %}
-                                            Renew Token
+                                            Reauthorize
                                             {% else %}
                                             Authorize
                                             {% endif %}
@@ -88,7 +88,7 @@
                         <form method="post" action="config/twitch">
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="sm:col-span-2 mx-2 mb-1 text-2xl font-bold text-gray-900 dark:text-white">
-                                Twitch
+                                Twitch{% if twitch_data['renew_date'] %} <span class="text-green-500">✓</span>{% else %} <span class="text-red-500">🗙</span>{% endif %}
                             </div>
                         </div>
                         <div class="p-4 mb-4 border-solid border-2 rounded-md border-blue-900">
@@ -119,11 +119,32 @@
                                     <input type="checkbox" id="twitch_client_secret_show" onclick="togglePassword('twitch_client_secret')" class="ml-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <span class="ml-1 pt-2 text-sm font-medium text-gray-900 dark:text-white">Show client_secret</span>
                                 </div>
-                                <div class="sm:col-span-2 mb-1 text-xl font-bold text-gray-900 dark:text-white text-right">
+                                <div class="sm:col-span-2 mb-1 text-md font-bold text-gray-900 dark:text-white text-right grid gap-4 grid-cols-2">
+
+                                    <div class="col-span-2 text-center font-thin">
+                                        {% if twitch_data['renew_date'] %}
+                                        Token Expires on <span>{{twitch_data['renew_date']}}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-span-1 text-left">
+                                        <button type="button"
+                                        onclick="window.location.href='/services/twitch/oauth?state={{url_for('modpipe.dashboard')}}?config';"
+                                        class="inline-flex items-center px-5 py-2.5
+                                        text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
+                                        focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                            {% if twitch_data['renew_date'] %}
+                                            Reauthorize
+                                            {% else %}
+                                            Authorize
+                                            {% endif %}
+                                        </button>
+                                    </div>
+                                    <div class="col-span-1">
                                     <button type="submit"
                                     class="inline-flex items-center px-5 py-2.5
                                     text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4
                                     focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
