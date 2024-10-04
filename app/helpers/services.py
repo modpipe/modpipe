@@ -214,7 +214,8 @@ class Services:
     
     def renew_token(self,
                     id,
-                    service=None
+                    service=None,
+                    token_url=None
                     ):
         client = self.get_client_from_db(id=id)
         if not client['error']:
@@ -226,7 +227,7 @@ class Services:
                         "refresh_token": client['token']['refresh_token']
                     }
             token = json.loads(
-                requests.post(self.token_url, data = data)
+                requests.post(token_url, data = data)
             )
             token['renew_before'] = time.time() + client['token']['expires_in']
             client['token'] = token
@@ -236,7 +237,8 @@ class Services:
     def get_bearer(self,
                    id,
                    service=None):
-        client = self.get_client_from_db(id=id)
+        client = self.get_client_from_db(id=id,service=service)
+        logs.info(f"CLIENT  : {client}")
         if client:
             if "renew_before" in client['token']:
                 now = time.time()
@@ -248,10 +250,31 @@ class Services:
     
     def validate_token(self,
                        id,
-                       service=None
+                       service=None,
+                       validate_url=None,
+                       bearer=None,
+                       validation=None,
+                       valid=None
                        ):
-        client = self.get_client_from_db(id=id)
-        if client:
-            pass
-
+        if service == "twitch":
+            logs.info(f"SERVICE  : {service}")
+            bearer = self.get_bearer(id,service=service)
+            if bearer:
+                logs.info(f"BEARER  : {bearer}")
+                headers = {"Authorization": f"Bearer {bearer}",
+                        "Accept": "application/json"
+                        }
+                logs.info(f"VALIDATE_URL  : {validate_url}")
+                validation = requests.get(validate_url, headers=headers)
+                logs.info(f"VALIDATION  : {validation}")
+                validation_json = validation.json()
+                logs.info(f"VALIDATION_JSON  : {validation_json}")
+                if "scopes" in validation_json:
+                    logs.info("TOKEN IS VALID")
+                    return True
+            logs.info("TOKEN IS NOT VALID")
+            return False
+        logs.info(f"TOKEN VALIDATION NOT SUPPORTED FOR {service}")
+        return None
+            
 

@@ -29,6 +29,7 @@ def get_service_config(service,param,requested_param=None):
         if param not in service_config:
             logs.info(f"ERROR  : {param} not in current_app.config['SERVICES']")
             requested_param =  None
+            return None
         requested_param = service_config[param]
 
         if param == 'scope':
@@ -166,4 +167,6 @@ def service_oauth_renew(svc):
 @service.route('<svc>/oauth/validate')
 @login_required
 def service_oauth_validate(svc):
-    services.validate_token(current_user.id,svc)
+    validate_url = get_service_config(svc,'validate_url')
+    validation = services.validate_token(current_user.id,svc, validate_url=validate_url)
+    return {"valid" : validation}

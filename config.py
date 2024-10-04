@@ -92,6 +92,7 @@ class Config(object):
             'authorize_url':    'https://id.twitch.tv/oauth2/authorize',
             'token_url':        'https://id.twitch.tv/oauth2/token',
             'callback_url':    f'{os.environ.get("APP_URL")}/services/twitch/oauth/callback',
+            'validate_url':     'https://id.twitch.tv/oauth2/validate',
             'scope':           [
                                     'user:read:email',
                                     'user:read:chat',
